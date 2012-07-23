@@ -1,0 +1,304 @@
+<!doctype html>
+<html>
+<head>
+	<meta name="authot" content="juanmagomezr@gmail.com"/>
+	<meta name="description" content="TDD presentation used at OdigeO Madrid in July 2012 to introduce TDD technyques" />
+	<meta charset="utf-8" />
+
+	<style type="text/css">
+		body {
+			background: #000; 
+			color: #fff; 
+			font-family: sans-serif, Arial;
+		}
+		
+		h1 {
+			color: #ECE47C; 
+			font-size: 2em;
+		}
+		
+		h2 {
+			color: #fff; 
+			font-size: 1.5em;
+		}
+
+		#impress {
+			width: 800px; 
+			height: 600px; 
+			margin: 0 auto;
+		}
+		
+		#front-page h1 {
+			font-size: 6em;
+		}
+
+		#front-page h2 {
+			font-size: 3em;
+		}
+
+		#footer {
+
+		}
+
+		.fallback-message {
+			display: none;
+		}
+		
+		.step {
+			width: 760px; 
+			height: 560px; 
+			padding: 20px;
+			margin: 0 auto;
+		}
+
+	</style>
+</head>
+
+<body class="impress-not-suported">
+	<div class="fallback-message">
+		<p>Tu navegador no soporta los requerimientos necesarios para ejecutar impress.js correctamente.</p>
+		<p>Para obtener la mejor experiencia de usuario, por favor, actualizalo.</p>
+	</div>
+
+	<div id="impress">
+		<!-- Front Page -->
+		<div class="step no-slide" id="front-page">
+			<h1>Taller TDD</h1>
+			<h2>OdigeO Madrid, Julio 2012</h2>
+			<div class="centered">
+				<a href="http://juanmagomez.github.com/CV" target="_blank">Puedes ver mi CV aquí</a>
+			</div>
+		</div>
+
+		<!-- Important concepts -->
+		<div class="step" id="important-concepts">
+			<h1>Conceptos importantes</h1>
+			<ul>
+				<li>Don't repeat yourself (DRY)</li>
+				<li>Principios SOLID</li>
+				<li>Clean code</li>
+				<li>System under test</li>
+				<li>Mocks</li>
+				<li>Matchers</li>
+		</div>
+
+		<!-- Don't Repeat Yourself -->
+		<div class="step" id="dry">
+			<h1>Don't Repeat Yourself</h1>
+			<ul>
+				<li>Algo común en la programación es cegarnos por entregar producto terminado sin reparar mucho tiempo en la calidad.</li>
+				<li>Estas prisas nos llevan en numerosas ocasiones a utilizar una técnica peligrosa: copy & paste.</li>
+				<li>Donde más inciden estas costumbres es a la hora de mantener el código fuente que escribimos.</li>
+				<li>Una buena forma de evitar esta práctica es que cada vez que tenga que copiar código, <u>encapsule esa funcionalidad en un componente nuevo</u>.</li>
+			</uk>
+		</div>
+
+		<!-- SOLID principles -->
+		<div class="step" id="solid">
+			<h1>Principios SOLID</h1>
+			<ul>
+				<li>Single responsibility</li>
+				<li>Open / Close</li>
+				<li>Liskov substitution</li>
+				<li>Interface segregation</li>
+				<li>Dependency inversion</li>
+			</ul>
+			<p>Esto lo pongo porque queda molón hablar de SOLID, no porque lo vayamos a ver :D</p>
+		</div>
+
+		<!-- Single responsibility Step 1-->
+		<div class="step" id="single-responsibility-1">
+			<h1>Single responsibility</h1>
+			<ul>
+				<li>Es el que más nos va a servir para TDD.</li>
+				<li>Ningún artefacto de código debe tener más de una responsabilidad.</li>
+				<li>"Sólo debe existir una razón para modificar un artefacto" esta frase es muy útil.</li>
+				<li>Se apoya en el encapsulamiento de funcionalidad y en DRY.</li>
+			</ul>
+		</div>
+
+		<!-- Single responsibility Step 2-->
+		<div class="step" id="single-responsibility-2">
+			<h1>Single resposibility</h1>
+			<p>Aquí tenemos enlaces a webs y blogs para ampliar información sobre el principio de responsabilidad única.</p>
+			<p>
+				Blog Enrique Amodeo:<br/>
+				<a href="http://eamodeorubio.wordpress.com/2011/03/07/diseno-software-agil-4-solid-1-%C2%BFtus-clases-son-bomberotorero/" target="_blank">http://eamodeorubio.wordpress.com/2011/03/07/diseno-software-agil-4-solid-1-%C2%BFtus-clases-son-bomberotorero/</a>
+			</p>
+			<p>
+				Desarrollo Web:<br/>
+				<a href="http://www.desarrolloweb.com/articulos/principio-reponsabilidad-unica-I-dotnet.html" target="_blank">http://www.desarrolloweb.com/articulos/principio-reponsabilidad-unica-I-dotnet.html</a>
+			</p>
+			<p>
+				GenbetaDev (resumen SOLID):<br/>
+				<a href="http://www.genbetadev.com/paradigmas-de-programacion/solid-cinco-principios-basicos-de-diseno-de-clases" target="_blank">http://www.genbetadev.com/paradigmas-de-programacion/solid-cinco-principios-basicos-de-diseno-de-clases</a>
+			</p>
+		</div>
+
+		<!-- Clean code Step 1-->
+		<div class="step" id="clean-code-1">
+			<h1>Clean Code</h1>
+			<p>Tanto el código fuente como los tests (también es código a mantener) deben ser:</p>
+			<ul>
+				<li>Legibles</li>
+				<li>Cumplir con DRY y SOLID (en lo posible)</li>
+				<li>Los comentarios deben ser para resumir, no para explicar</li>
+			</ul>
+		</div>
+
+		<!-- Clean code Step 2 -->
+		<div class="step" id="clean-code-2">
+			<h1>Clean Code (reglas útiles)</h1>
+			<ul>
+				<li>El <u>nombre de una clase o artefacto</u> debe dar alguna pista sobre lo que vamos a encontrar dentro</li>
+				<li>El <u>nombre de un método o función</u> debe indicar el objetivo del método o función</li>
+				<li>El <u>nombre de una variable</u> debe dejar ver el porqué de su existencia</li>
+				<li><u>Evitaremos</u> añadir el tipo de un objeto a su nombre porque no aporta información extra</li>
+			</ul>
+		</div>
+
+		<!-- System under test -->
+		<div class="step" id="sut">
+			<h1>System Under Test</h1>
+			<ul>
+				<li>Para escribir un test unitario necesitamos identificar claramente el <u>artefacto que vamos a testear</u></li>
+				<li><u>Sólo testeamos sus métodos públicos</u></li>
+				<li>Los métodos privados se relocalizan en otra parte del sistema (principio de única responsabilidad)</li>
+				<li>Los artefactos que utilice nuestro SUT van a ser simulados (mocks)</li>
+			</ul>
+		</div>
+
+		<!-- How can I start with TDD -->
+		<div class="step" id="start-with-tdd">
+			<h1>Sí, pero cómo empiezo con TDD</h1>
+			<ul>
+				<li>Soy de los que se ponen a programar antes de pensar?</li>
+				<li>¿No soy capaz de imaginarme la funcionalidad como una interacción de componentes?</li>
+				<li>¿Me he hecho fan en Facebook del código espagueti?</li>
+				<li>Si a todo respondes que no, ve a la slide de Mocks.</li>
+			</ul>
+		</div>
+
+		<!-- Before doing TDD -->
+		<div class="step" id="before-tdd">
+			<h1>Antes de hacer TDD</h1>
+			<ul>
+				<li>Imaginemos nuestro <u>sistema como un grupo de artefactos</u> interactuando entre ellos</li>
+				<li>Haz un <u>dibujo en un papel</u> de esa visión</li>
+				<li><u>Escoge un componente</u> y su función principal, será nuestro SUT</li>
+				<li>El resto, serán componentes a "mockear"</li>
+			</ul>
+		</div>
+
+		<!-- Mocks -->
+		<div class="step" id="mocks">
+			<h1>Mocks</h1>
+			<ul>
+				<li>Un mock es un objeto "<u>suplantado</u>", "<u>simulado</u>"...</li>
+				<li>Crearemos mocks de <u>cada artefacto que interactúe con nuestro SUT</u></li>
+				<li>Nosotros utilizaremos Mockito</li>
+				<li>Sintaxis:<br/>
+					<span class="code-example">
+						when (objetoMockeado.metodoAMockear(parametrosDeEntrada))<br/>
+						.thenReturn (objetoADevolverPorMetodoAMockear)
+					</span>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Matchers -->
+		<div class="step" id="matchers">
+			<h1>Matchers</h1>
+			<ul>
+				<li>Cuando simulamos la respuesta de un método, podemos especificar <u>un parámetro de entrada concreto</u></li>
+				<li>Pero también podemos indicar que devuelva lo que sea mientras que el <u>parámetro recibido sea del tipo que le indiquemos</u></li>
+				<li>Ejemplos: anyInt(), anyString()...</li>
+			</ul>
+		</div>
+
+		<!-- More about unit testing -->
+		<div class="step" id="unit-testing">
+			<h1>Más sobre unit testing</h1>
+			<p>Para ampliar información sobre tests unitarios puedes ver las slides que preparamos para el taller que hicimos de testing unitario en<br/>
+				<a href="https://docs.google.com/present/edit?id=0AV8RRyEiyyagZGMzOTVubnNfOTFmdzh6cHBkcA" target="_blank">https://docs.google.com/present/edit?id=0AV8RRyEiyyagZGMzOTVubnNfOTFmdzh6cHBkcA</a>
+			</p>
+		</div>
+
+		<!-- How to do TDD -->
+		<div class="step" id="how-tdd">
+			<h1>¿Cómo "TDDear"?</h1>
+			<ul>
+				<li>Cada test debe representar un estado de mi sistema</li>
+				<li>El SUT entra en el sistema y modifica su estado</li>
+				<li>Por tanto, definimos estado inicial, estado que esperamos, y estado final</li>
+				<li>Comparamos estado esperado con estado final (creado por el SUT)</li>
+			</ul>
+		</div>
+
+		<!-- Baby Steps -->
+		<div class="step" id="baby-steps">
+			<h1>Baby Steps</h1>
+			<ul>
+				<li>El <u>primer test</u> será el que ejemplifique <u>el caso más sencillo</u>. Cuando lo pasemos, habremos dado soporte a una primera casuística</li>
+				<li>En el <u>siguiente test</u>, daremos un pasito adelante, planteando <u>una casuística un pelín más compleja</u>, el siguiente paso natural</li>
+				<li><u>Y así seguiremos avanzando</u>, de forma que consigamos abarcar la mayor cantidad de casuísticas posibles</li>
+			</ul>
+		</div>
+
+		<!-- Steps for each test -->
+		<div class="step" id="test-steps">
+			<h1>Pasos a seguir en cada test</h1>
+			<ul>
+				<li>Elijo un nombre descriptivo para el test</li>
+				<li>Escribo la condición de aceptación del test</li>
+				<li>Desarrollo los mock necesarios</li>
+				<li>Ejecuto el método del SUT a testear y recojo el estado del sistema inmediatamente después</li>
+				<li>
+					Para cada test, seguimos RGF:
+					<ul>
+						<li>Red</li>
+						<li>Green</li>
+						<li>Refactor</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+
+		<!-- Red, Green, Refactor -->
+		<div class="step" id="red-green-refactor">
+			<h1>Red, Green, Refactor</h1>
+			<ul>
+				<li>Red: si el test está bien diseñado, debería dar error porque <u>mi funcionalidad no está aún desarrollada</u></li>
+				<li>Green: <u>escribo la lógica necesaria</u> para pasar el test sin preocuparme del estilo</li>
+				<li>Refactor: una vez paso mi test, <u>refactorizo</u> teniendo en cuenta las normas de <u>DRY, SOLID, clean code</u>, etc. que me interesen</li>
+			</ul>
+		</div>
+
+		<!-- After each refactor -->
+		<div class="step" id="after-refactor">
+			<h1>Tras cada refactor</h1>
+			<p>Es esencial pasar de nuevo los tests tras cada refactor para ver que nada ha dejado de funcionar</p>
+		</div>
+
+		<!-- If I rewrite business logic in the future -->
+		<div class="step" id="in-the-future">
+			<h1>Si otro día modifico lógica</h1>
+			<p>Si en algún momento voy a modificar lógica de negocio, no debemos olvidar:</p>
+			<ul>
+				<li>Comprobar primero los tests</li>
+				<li>Modificar los tests afectados por los nuevos requerimientos (si fuera necesario)</li>
+				<li>Una vez definidos los nuevos tests, escribir la nueva lógica de negocio</li>
+			</ul>
+		</div>
+
+	</div>
+
+	<div id="footer">
+		<img src="images/twitter_logo.png">@JuanmaGomeR</a>
+	</div>
+	<!--
+	<script type="text/javascript" src="js/impress.js"></script>
+	<script type="text/javascript">impress().init();</script>
+-->
+</body>
+</html>
